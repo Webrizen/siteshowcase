@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins, Unbounded } from "next/font/google";
+import Navbar from "@/components/system/Navbar";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -83,8 +85,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
-        <body className={poppins.className}>{children}</body>
-      </html>
+    <html lang="en" suppressHydrationWarning>
+      <body className={poppins.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
